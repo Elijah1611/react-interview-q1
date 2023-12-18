@@ -98,6 +98,7 @@ form {
 
 .ContactButton:disabled {
   background-color: hsl(210, 100%, 90%);
+  cursor: not-allowed;
 }
 
 .ContactTable {
@@ -126,7 +127,18 @@ form {
 }
 
 .ContactTable tr:hover {
-  background-color: hsl(210, 100%, 60%, 50%);
+  background-color: hsl(210, 100%, 60%);
+  color: white;
   font-weight: 700;
+  transform: scale(1.05);
+  transition: all 0.3s ease-in-out;
+}
+
+.ContactTable thead tr:hover {
+  background-color: hsl(210, 100%, 60%, 20%);
+  color: black;
+  font-weight: 400;
+  border-radius: 0px;
+  transform: none;
 }
 
