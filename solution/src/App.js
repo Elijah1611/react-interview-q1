@@ -1,44 +1,92 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
 import { isNameValid, getLocations } from './mock-api/apis'
+import './App.css';
 
 function App() {
   const [name, setName] = useState('');
   const [location, setLocation] = useState('');
+
   const [locations, setLocations] = useState([]);
+  const [contacts, setContacts] = useState([]);
+
   const [errorMessage, setErrorMessage] = useState(false);
 
+  // The Clear button will be disabled if the list is empty and enabled if the list has at least 1 contact.
+  const isClearButtonDisabled = () => {
+    if (contacts.length === 0) return true
+    else return false
+  }
+
+  // The Add button will be disabled if the name and location does not pass validation or is empty
+  const isAddButtonDisabled = () => {
+    if (name.length === 0 || errorMessage === true || location.length === 0) return true
+    else return false
+  }
+
+  // handles updating the state for the Name input field
+  // Also clears the error validation when the input changes
   const handleNameChange = (e) => {
     setName(e.target.value);
+    if (errorMessage === true) setErrorMessage(false)
   };
 
+  // handles updating the state for the Location select dropdown input field
+  // Also clears the error validation when the input changes
   const handleLocationChange = (e) => {
     setLocation(e.target.value);
+    if (errorMessage === true) setErrorMessage(false)
+  };  
+  
+  // This method adds the contact to the the contact table.
+  // It will also check to see if the name is valid according the the API implementation and if it is present in local storage.
+  // Validation will pass if the same name exist but the location is different.
+  // If the validation fails, it will show the validation error on the form (name input field)
+  // If the validation passes, it will add the contact to state and local storage and reset the form
+  const handleAddContact = async () => {
+    const isNameValidResults = await isNameValid(name);
+    const contactsFromLS = localStorage.getItem('Contacts');
+    const isNameTaken = JSON.parse(contactsFromLS).find(contacts => contacts.name === name && contacts.location === location);
+
+    if (isNameValidResults === false || isNameTaken) {
+      setErrorMessage(true)
+      return
+    }
+    else setErrorMessage(false)
+
+    contacts.push({ name, location });
+
+    localStorage.setItem('Contacts', JSON.stringify(contacts));
+
+    setName('')
+    setLocation('')
   };
 
-  const localStroageMock = [
-    { name: "Jack", location: "USA" },
-    { name: "Billy", location: "Canada" },
-    { name: "Lucy", location: "China" },
-    { name: "Jane", location: "Brazil" },
-    { name: "Rachel", location: "USA" },
-  ]
+  // Clears the contacts in state and local storage
+  const handleClearContacts = () => {
+    setContacts([]);
+    localStorage.setItem('Contacts', []);
+  }
 
+  // On initial load the app will fetch the locations from the API for the dropdown and fetch the contacts from local storage for the table.
+  // Errors will be logged to the console
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await isNameValid(name);
-        if(response === false) setErrorMessage(true)
-
         const data = await getLocations();
+
         setLocations(data); 
+
+        const contactsFromLocalStorage = localStorage.getItem('Contacts');
+
+        if (contactsFromLocalStorage === null) setContacts([]);
+        else setContacts(JSON.parse(contactsFromLocalStorage));
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
 
     fetchData();
-  }, [name]);
+  }, []);
 
   return (
     <div className="App">
@@ -84,8 +132,8 @@ function App() {
 
       <div className='Contacts'>
         <div className='ContactControls'>
-          <button type='button' className='ContactButton'>Clear</button>
-          <button className='ContactButton'>Add</button>
+          <button type='button' className='ContactButton' onClick={handleClearContacts} disabled={isClearButtonDisabled()}>Clear</button>
+          <button className='ContactButton' onClick={handleAddContact} disabled={isAddButtonDisabled()}>Add</button>
         </div>
 
         <table className='ContactTable'>
@@ -97,7 +145,7 @@ function App() {
             </thead>
             <tbody>
               {
-                localStroageMock.map((contact) => (
+                contacts.length > 0 && contacts.map((contact) => (
                   <tr>
                     <td>{contact.name}</td>
                     <td>{contact.location}</td>

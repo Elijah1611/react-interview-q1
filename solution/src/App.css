@@ -64,7 +64,7 @@ form {
 
 .ContactButton {
   width: 100px;
-  background-color: hsl(210, 100%,50%);
+  background-color: hsl(210, 100%, 50%);
   color: white;
   border: none;
   padding: 16px;
@@ -84,6 +84,10 @@ form {
   background-color: hsl(210, 100%, 40%);
 }
 
+.ContactButton:disabled {
+  background-color: hsl(210, 100%, 90%);
+}
+
 .ContactTable {
   border: 5px hsl(210, 100%, 60%, 20%) solid;
   border-radius: 10px;
@@ -93,6 +97,7 @@ form {
 }
 
 .ContactTable th {
+  width: 300px;
   padding: 10px;
   font-weight: 900;
   letter-spacing: 1px;
