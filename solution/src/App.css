@@ -34,7 +34,7 @@ form {
 .FormField {
   display: flex;
   flex-direction: column;
-  width: 200px;
+  width: 250px;
 }
 
 .FormField input, .FormField select {
@@ -96,6 +96,7 @@ form {
   background-color: hsl(210, 100%, 40%);
 }
 
+/* Change cursor to not allowed to show the user that it is disabled */
 .ContactButton:disabled {
   background-color: hsl(210, 100%, 90%);
   cursor: not-allowed;
@@ -117,9 +118,12 @@ form {
   text-transform: uppercase;
 }
 
+/* Supports wrapping for long names */
 .ContactTable td {
   width: 300px;
+  max-width: 300px;
   padding: 10px;
+  overflow-wrap: break-word; 
 }
 
 .ContactTable tr:nth-child(odd) {
