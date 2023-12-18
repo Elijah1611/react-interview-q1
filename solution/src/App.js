@@ -44,8 +44,8 @@ function App() {
   // If the validation passes, it will add the contact to state and local storage and reset the form
   const handleAddContact = async () => {
     const isNameValidResults = await isNameValid(name);
-    const contactsFromLS = localStorage.getItem('Contacts');
-    const isNameTaken = JSON.parse(contactsFromLS).find(contacts => contacts.name === name && contacts.location === location);
+    const contactsFromLS = localStorage.getItem('Contacts') === '' ? [] : JSON.parse(localStorage.getItem('Contacts'));
+    const isNameTaken = contactsFromLS.find(contacts => contacts.name === name && contacts.location === location);
 
     if (isNameValidResults === false || isNameTaken) {
       setErrorMessage(true)

@@ -25,12 +25,24 @@ form {
   width: 100px;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .FormField {
   display: flex;
   flex-direction: column;
   width: 200px;
+}
+
+.FormField input, .FormField select {
+  padding: 10px;
+  border: 2px hsl(210, 100%, 90%) solid;
+  border-radius: 5px;
+  color: black;
+  font-weight: 700;
 }
 
 .FormFieldValidationError {
