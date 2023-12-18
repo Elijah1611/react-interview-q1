@@ -1,38 +1,115 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  height: 100vh;
+  gap: 40px;
+  margin-top: 40px;
+  font-family: Verdana, sans-serif;
+}
+
+/*============= FORM =================*/
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.FormGroup {
+  display: flex;
+  gap: 20px;
+}
+
+.FormLabel {
+  width: 100px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.FormField {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
+
+.FormFieldValidationError {
+  color: red;
+  font-size: 12px;
+  margin: 0px;
+  margin-top: 5px;
+}
+
+.show {
+  display: none;
+}
+
+.hide {
+  display: block;
+}
+
+/*============= CONTACTS =================*/
+
+.Contacts {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ContactControls {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.ContactButton {
+  width: 100px;
+  background-color: hsl(210, 100%,50%);
   color: white;
+  border: none;
+  padding: 16px;
+  font-weight: 900;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.App-link {
-  color: #61dafb;
+.ContactButton:hover {
+  background-color: hsl(210, 100%, 45%);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.ContactButton:active {
+  background-color: hsl(210, 100%, 40%);
 }
+
+.ContactTable {
+  border: 5px hsl(210, 100%, 60%, 20%) solid;
+  border-radius: 10px;
+  border-spacing: 0px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.ContactTable th {
+  padding: 10px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.ContactTable td {
+  width: 300px;
+  padding: 10px;
+}
+
+.ContactTable tr:nth-child(odd) {
+  background-color: hsl(210, 100%, 60%, 20%);
+}
+
+.ContactTable tr:hover {
+  background-color: hsl(210, 100%, 60%, 50%);
+  font-weight: 700;
+}
+
